@@ -64,15 +64,15 @@ const adminMenuItems = [
 ];
 
 const learningLinks = [
-  { title: 'Java', url: 'https://www.w3schools.com/java/', icon: Code, external: true },
-  { title: 'Python', url: 'https://www.w3schools.com/python/', icon: Code, external: true },
-  { title: 'C Programming', url: 'https://www.w3schools.com/c/', icon: Code, external: true },
-  { title: 'C++', url: 'https://www.w3schools.com/cpp/', icon: Code, external: true },
-  { title: 'SQL', url: 'https://www.w3schools.com/sql/', icon: Database, external: true },
-  { title: 'Git', url: 'https://www.w3schools.com/git/', icon: Monitor, external: true },
-  { title: 'Excel', url: 'https://www.w3schools.com/excel/', icon: Calculator, external: true },
-  { title: 'Machine Learning', url: 'https://www.geeksforgeeks.org/machine-learning/', icon: Monitor, external: true },
-  { title: 'Free Courses Hub', url: 'https://www.geeksforgeeks.org/courses', icon: Globe, external: true },
+  { title: 'Java', url: 'https://developers.google.com/learn/topics/java', icon: Code, external: true },
+  { title: 'Python', url: 'https://developers.google.com/edu/python', icon: Code, external: true },
+  { title: 'C Programming', url: 'https://www.coursera.org/learn/c-programming', icon: Code, external: true },
+  { title: 'C++', url: 'https://www.coursera.org/learn/c-plus-plus-a', icon: Code, external: true },
+  { title: 'SQL', url: 'https://www.coursera.org/learn/intro-sql', icon: Database, external: true },
+  { title: 'Git', url: 'https://www.coursera.org/learn/introduction-git-github', icon: Monitor, external: true },
+  { title: 'Excel', url: 'https://www.coursera.org/learn/excel-basics-data-analysis-ibm', icon: Calculator, external: true },
+  { title: 'Machine Learning', url: 'https://developers.google.com/machine-learning/crash-course', icon: Monitor, external: true },
+  { title: 'Free Courses Hub', url: 'https://www.coursera.org/courses?query=free', icon: Globe, external: true },
 ];
 
 export function AppSidebar() {

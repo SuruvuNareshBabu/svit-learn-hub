@@ -59,12 +59,14 @@ const Header: React.FC = () => {
         <SidebarTrigger />
         
         <div className="flex items-center gap-3">
-          <div className="p-2 bg-primary rounded-lg">
-            <GraduationCap className="h-6 w-6 text-primary-foreground" />
-          </div>
+          <img 
+            src="/src/assets/svit-logo.jpg" 
+            alt="SVIT Logo" 
+            className="h-10 w-10 rounded-lg object-cover" 
+          />
           <div>
             <h1 className="text-xl font-bold text-primary">SVIT LMS</h1>
-            <p className="text-sm text-muted-foreground">Learning Management System</p>
+            <p className="text-sm text-muted-foreground">Sri Venkateswara Institute of Technology</p>
           </div>
         </div>
       </div>
