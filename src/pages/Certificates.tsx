@@ -2,8 +2,8 @@ import React, { useState } from "react";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { Award, Download, Eye, Calendar } from "lucide-react";
+import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { Award, Download, Eye } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import { format, parseISO } from "date-fns";
 import jsPDF from "jspdf";
@@ -13,27 +13,26 @@ const Certificates = () => {
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedCategory, setSelectedCategory] = useState("all");
 
-  // Dummy realistic SVIT certificates
   const certificates = [
     {
       id: 1,
-      title: "Completion of java Programming",
-      studentName: "Suruvu Naresh babu",
+      title: "Completion of Java Programming",
+      studentName: "Suruvu Naresh Babu",
       issuer: "Sri Venkateswara Institute of Technology",
       category: "academic",
       issueDate: "2025-06-10",
       credentialId: "SVIT-CP-001",
-      description: "Successfully completed 12-week Python programming course with practical projects.",
-      skills: ["Python", "Data Structures", "OOP"],
+      description: "Successfully completed 12-week Java programming course with practical projects.",
+      skills: ["Java", "OOP", "Data Structures"],
       verified: true,
-      certificateUrl: "/certificates/python-svit.pdf",
+      certificateUrl: "/certificates/java-svit.pdf",
       logo: "/assets/svit-logo.png",
-      signature: "/assets/principal-sign.png",
+      signature: "/assets/principal-signature.png",
     },
     {
       id: 2,
       title: "Machine Learning Certification",
-      studentName: "Suruvu Naresh babu",
+      studentName: "Suruvu Naresh Babu",
       issuer: "Sri Venkateswara Institute of Technology",
       category: "academic",
       issueDate: "2025-07-15",
@@ -43,12 +42,12 @@ const Certificates = () => {
       verified: true,
       certificateUrl: "/certificates/ml-svit.pdf",
       logo: "/assets/svit-logo.png",
-      signature: "/assets/principal-sign.png",
+      signature: "/assets/principal-signature.png",
     },
     {
       id: 3,
       title: "Full Stack Web Development",
-      studentName: " Suruvu Naresh babu",
+      studentName: "Suruvu Naresh Babu",
       issuer: "Sri Venkateswara Institute of Technology",
       category: "professional",
       issueDate: "2025-08-05",
@@ -58,28 +57,8 @@ const Certificates = () => {
       verified: true,
       certificateUrl: "/certificates/fullstack-svit.pdf",
       logo: "/assets/svit-logo.png",
-      signature: "/assets/principal-sign.png",
-    },
-     {
-      id: 4,
-      title: "Completion of Python Programming",
-      studentName: " Suruvu Naresh babu",
-      issuer: "Sri Venkateswara Institute of Technology",
-      category: "academic",
-      issueDate: "2025-06-10",
-      credentialId: "SVIT-CP-001",
-      description: "Successfully completed 12-week Python programming course with practical projects.",
-      skills: ["Python", "Data Structures", "OOP"],
-      verified: true,
-      certificateUrl: "/certificates/python-svit.pdf",
-      logo: "/assets/svit-logo.png",
-      signature: "/assets/principal-sign.png",
-    },
-
-
-
-
-
+      signature: "/assets/principal-signature.png",
+    }
   ];
 
   const getCategoryColor = (category: string) => {
@@ -104,38 +83,63 @@ const Certificates = () => {
 
   const downloadCertificatePDF = (cert: any) => {
     const doc = new jsPDF("landscape", "pt", "a4");
+    const pageWidth = doc.internal.pageSize.getWidth();
+    const pageHeight = doc.internal.pageSize.getHeight();
+
+    // Decorative Border
+    doc.setLineWidth(3);
+    doc.setDrawColor(0, 51, 102); // dark blue border
+    doc.rect(20, 20, pageWidth - 40, pageHeight - 40);
+
+    // Header
     doc.setFont("helvetica", "bold");
-    doc.setFontSize(24);
-    doc.text("Certificate of Completion", 420, 80, { align: "center" });
-    doc.setFontSize(16);
-    doc.text(`This is to certify that`, 420, 130, { align: "center" });
-    doc.setFontSize(22);
-    doc.text(cert.studentName, 420, 170, { align: "center" });
-    doc.setFontSize(16);
-    doc.text(`has successfully completed the course:`, 420, 200, { align: "center" });
-    doc.setFontSize(20);
-    doc.text(cert.title, 420, 230, { align: "center" });
-    doc.setFontSize(14);
-    doc.text(`Issued by ${cert.issuer}`, 420, 270, { align: "center" });
-    doc.text(`Date: ${format(parseISO(cert.issueDate), "MMM dd, yyyy")}`, 420, 290, { align: "center" });
-    doc.text(`Credential ID: ${cert.credentialId}`, 420, 310, { align: "center" });
+    doc.setFontSize(30);
+    doc.setTextColor(0, 51, 102);
+    doc.text("Certificate of Completion", pageWidth / 2, 80, { align: "center" });
 
-    // Logo
+    // SVIT Logo
     if (cert.logo) {
-      doc.addImage(cert.logo, "PNG", 50, 50, 100, 100);
-    }
-    // Signature
-    if (cert.signature) {
-      doc.addImage(cert.signature, "PNG", 700, 350, 120, 60);
-      doc.text("Principal", 750, 420);
-    }
+      const logoImg = new Image();
+      logoImg.src = cert.logo;
+      logoImg.onload = () => {
+        doc.addImage(logoImg, "PNG", 50, 50, 100, 100);
 
-    doc.save(`${cert.studentName}-${cert.title}.pdf`);
+        // Main content
+        doc.setFontSize(16);
+        doc.setTextColor(0, 0, 0);
+        doc.text("This is to certify that", pageWidth / 2, 130, { align: "center" });
+        doc.setFontSize(24);
+        doc.text(cert.studentName, pageWidth / 2, 170, { align: "center" });
+
+        doc.setFontSize(16);
+        doc.text("has successfully completed the course", pageWidth / 2, 200, { align: "center" });
+        doc.setFontSize(20);
+        doc.text(cert.title, pageWidth / 2, 230, { align: "center" });
+
+        doc.setFontSize(14);
+        doc.text(`Issued by ${cert.issuer}`, pageWidth / 2, 270, { align: "center" });
+        doc.text(`Date: ${format(parseISO(cert.issueDate), "MMM dd, yyyy")}`, pageWidth / 2, 290, { align: "center" });
+        doc.text(`Credential ID: ${cert.credentialId}`, pageWidth / 2, 310, { align: "center" });
+
+        // Principal Signature
+        if (cert.signature) {
+          const sigImg = new Image();
+          sigImg.src = cert.signature;
+          sigImg.onload = () => {
+            doc.addImage(sigImg, "PNG", pageWidth - 200, pageHeight - 150, 120, 60);
+            doc.setFontSize(12);
+            doc.text("Principal", pageWidth - 140, pageHeight - 80);
+            doc.save(`${cert.studentName}-${cert.title}.pdf`);
+          };
+        } else {
+          doc.save(`${cert.studentName}-${cert.title}.pdf`);
+        }
+      };
+    }
   };
 
   return (
     <div className="p-6 space-y-8">
-      {/* Header */}
       <div className="flex justify-between items-start">
         <div>
           <h1 className="text-3xl font-bold text-foreground mb-2">SVIT Certificates</h1>
@@ -188,7 +192,7 @@ const Certificates = () => {
                   <DialogContent className="w-full max-w-4xl p-6">
                     <div className="bg-white p-6 border rounded-lg text-center relative">
                       <img src={cert.logo} alt="SVIT Logo" className="absolute top-4 left-4 w-20" />
-                      <h2 className="text-2xl font-bold mb-2">Certificate of Completion</h2>
+                      <h2 className="text-2xl font-bold mb-2 text-blue-800">Certificate of Completion</h2>
                       <p className="text-lg mb-1">This certifies that</p>
                       <h3 className="text-xl font-semibold mb-2">{cert.studentName}</h3>
                       <p className="text-lg mb-2">has successfully completed the course</p>
@@ -220,3 +224,4 @@ const Certificates = () => {
 };
 
 export default Certificates;
+

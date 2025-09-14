@@ -1,9 +1,11 @@
 🎓 Sri Venkateswara Institute of Technology - LMS Portal
+
 A responsive Learning Management System (LMS) Portal built for Sri Venkateswara Institute of Technology.
 This system helps Students, Faculty, and Admins manage academics, resources, and communication seamlessly.
 
 ✨ Features
-1. 🔑 Authentication
+1. 🔑 Authentication:
+
 Signup with Email & Password
 Login with Email & Password
 Role-based access (Student / Faculty / Admin)
