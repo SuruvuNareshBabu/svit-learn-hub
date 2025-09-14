@@ -73,6 +73,10 @@ const learningLinks = [
   { title: 'Excel', url: 'https://www.w3schools.com/excel/index.php', icon: Calculator, external: true },
   { title: 'Machine Learning', url: 'https://www.geeksforgeeks.org/machine-learning/machine-learning/', icon: Monitor, external: true },
   { title: 'Free Courses Hub', url: 'https://www.coursera.org/courses?query=free', icon: Globe, external: true },
+  { title: 'python videos', url: 'https://youtu.be/QXeEoD0pB3E?si=ZGumvU4ScvVRVEva', icon: Globe, external: true },
+
+
+
 ];
 
 export function AppSidebar() {

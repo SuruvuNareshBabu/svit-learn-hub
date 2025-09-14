@@ -26,9 +26,9 @@ Address (Present & Permanent)
 3. 📊 Dashboard
 Profile → View & edit personal details
 My Courses → Curriculum, Subjects, Assignments, Attendance, Timetable
-Resources → PDFs, Videos, Text Notes, Previous Papers, YouTube Links
+Resources → Videos,
 Today’s Class → Subject, Teacher, Time
-Certificates → Upload/View (NPTEL, Internships, Projects)
+Certificates → Upload/View (completion certificates)
 Announcements & Notifications
 Attendance Tracking (Total, Subject-wise)
 Gradebook / Progress Report
@@ -54,8 +54,8 @@ Authentication: JWT (JSON Web Tokens)
 APIs: RESTful APIs
 🚀 Getting Started
 1. Clone the repo
-git clone https://github.com/your-suruvuNareshbabu/svit-lms.git
-cd svit-lms
+git clone https://github.com/your-suruvuNareshbabu/svit-learn-hub.git
+cd svit-learn-hub
 npm install
 npm run dev
 
@@ -75,7 +75,7 @@ Extra Features (Certificates, About College, Admin Panel)
 
 2.Frontend: React + Tailwind (Vercel/Netlify)
 
-3.Database: MongoDB Atlas
+
 
 🤝 Contributing
 

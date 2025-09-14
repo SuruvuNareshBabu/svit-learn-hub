@@ -60,7 +60,7 @@ const Header: React.FC = () => {
         
         <div className="flex items-center gap-3">
           <img 
-            src="/src/assets/svit-logo.jpg" 
+            src="/src/assets/SvitLogo.png" 
             alt="SVIT Logo" 
             className="h-10 w-10 rounded-lg object-cover" 
           />
