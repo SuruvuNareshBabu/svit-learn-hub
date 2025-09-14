@@ -1,29 +1,39 @@
-import React, { useState } from 'react';
-import { useAuth, StudentProfile } from '@/contexts/AuthContext';
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
-import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
-import { Label } from '@/components/ui/label';
-import { Textarea } from '@/components/ui/textarea';
-import { Badge } from '@/components/ui/badge';
-import { Separator } from '@/components/ui/separator';
-import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
-import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
+import React, { useState } from "react";
+import { useAuth, StudentProfile } from "@/contexts/AuthContext";
+
+// UI Components
+import {
+  Card,
+  CardContent,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { Textarea } from "@/components/ui/textarea";
+import { Badge } from "@/components/ui/badge";
+import { Separator } from "@/components/ui/separator";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+
+// Icons
 import {
   User,
   Mail,
   Phone,
   MapPin,
   GraduationCap,
-  Calendar,
   Heart,
   CreditCard,
   Users,
   Edit3,
   Save,
-  X
-} from 'lucide-react';
-import { useToast } from '@/hooks/use-toast';
+  X,
+} from "lucide-react";
+
+// Toast hook
+import { useToast } from "@/hooks/use-toast";
 
 const Profile: React.FC = () => {
   const { user, updateProfile } = useAuth();
@@ -31,7 +41,7 @@ const Profile: React.FC = () => {
   const [editedProfile, setEditedProfile] = useState<any>({});
   const { toast } = useToast();
 
-  if (!user || user.role !== 'student') {
+  if (!user || user.role !== "student") {
     return (
       <div className="p-6">
         <Card>
@@ -72,14 +82,13 @@ const Profile: React.FC = () => {
     setEditedProfile({});
   };
 
-  const getInitials = (name: string) => {
-    return name
-      .split(' ')
-      .map(part => part[0])
-      .join('')
+  const getInitials = (name: string) =>
+    name
+      .split(" ")
+      .map((part) => part[0])
+      .join("")
       .toUpperCase()
       .slice(0, 2);
-  };
 
   const currentProfile = isEditing ? editedProfile : profile;
 
@@ -91,19 +100,21 @@ const Profile: React.FC = () => {
         <CardContent className="relative p-6">
           <div className="flex flex-col md:flex-row md:items-end gap-4 -mt-16">
             <Avatar className="h-24 w-24 border-4 border-background shadow-strong">
-              <AvatarImage src={profile.profileImage} />
+              <AvatarImage src={currentProfile.profileImage} />
               <AvatarFallback className="bg-primary text-primary-foreground text-2xl">
-                {getInitials(profile.name)}
+                {getInitials(currentProfile.name)}
               </AvatarFallback>
             </Avatar>
-            
+
             <div className="flex-1 space-y-2">
               <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-2">
                 <div>
-                  <h1 className="text-2xl font-bold text-foreground">{profile.name}</h1>
-                  <p className="text-muted-foreground">{profile.branch}</p>
+                  <h1 className="text-2xl font-bold text-foreground">
+                    {currentProfile.name}
+                  </h1>
+                  <p className="text-muted-foreground">{currentProfile.branch}</p>
                 </div>
-                
+
                 <div className="flex gap-2">
                   {!isEditing ? (
                     <Button onClick={handleEdit} variant="outline" size="sm">
@@ -112,7 +123,11 @@ const Profile: React.FC = () => {
                     </Button>
                   ) : (
                     <div className="flex gap-2">
-                      <Button onClick={handleSave} size="sm" className="bg-success text-success-foreground">
+                      <Button
+                        onClick={handleSave}
+                        size="sm"
+                        className="bg-success text-success-foreground"
+                      >
                         <Save className="h-4 w-4 mr-2" />
                         Save
                       </Button>
@@ -124,18 +139,18 @@ const Profile: React.FC = () => {
                   )}
                 </div>
               </div>
-              
+
               <div className="flex flex-wrap gap-2">
-                <Badge variant="secondary">{profile.course}</Badge>
-                <Badge>{`Semester ${profile.semester}`}</Badge>
-                <Badge variant="outline">{`Year ${profile.year}`}</Badge>
+                <Badge variant="secondary">{currentProfile.course}</Badge>
+                <Badge>{`Semester ${currentProfile.semester}`}</Badge>
+                <Badge variant="outline">{`Year ${currentProfile.year}`}</Badge>
               </div>
             </div>
           </div>
         </CardContent>
       </Card>
 
-      {/* Profile Details */}
+      {/* Profile Tabs */}
       <Tabs defaultValue="personal" className="space-y-4">
         <TabsList className="grid w-full grid-cols-4">
           <TabsTrigger value="personal">Personal</TabsTrigger>
@@ -144,7 +159,7 @@ const Profile: React.FC = () => {
           <TabsTrigger value="family">Family</TabsTrigger>
         </TabsList>
 
-        {/* Personal Information */}
+        {/* Personal */}
         <TabsContent value="personal" className="space-y-4">
           <Card>
             <CardHeader>
@@ -158,63 +173,93 @@ const Profile: React.FC = () => {
                 <Label>Full Name</Label>
                 {isEditing ? (
                   <Input
-                    value={currentProfile.name || ''}
-                    onChange={(e) => setEditedProfile({...editedProfile, name: e.target.value})}
+                    value={currentProfile.name || ""}
+                    onChange={(e) =>
+                      setEditedProfile({
+                        ...editedProfile,
+                        name: e.target.value,
+                      })
+                    }
                   />
                 ) : (
-                  <p className="text-sm text-muted-foreground">{profile.name}</p>
+                  <p className="text-sm text-muted-foreground">
+                    {currentProfile.name}
+                  </p>
                 )}
               </div>
-
               <div className="space-y-2">
                 <Label>Gender</Label>
                 {isEditing ? (
                   <Input
-                    value={currentProfile.gender || ''}
-                    onChange={(e) => setEditedProfile({...editedProfile, gender: e.target.value})}
+                    value={currentProfile.gender || ""}
+                    onChange={(e) =>
+                      setEditedProfile({
+                        ...editedProfile,
+                        gender: e.target.value,
+                      })
+                    }
                   />
                 ) : (
-                  <p className="text-sm text-muted-foreground">{profile.gender}</p>
+                  <p className="text-sm text-muted-foreground">
+                    {currentProfile.gender}
+                  </p>
                 )}
               </div>
-
               <div className="space-y-2">
                 <Label>Date of Birth</Label>
                 {isEditing ? (
                   <Input
                     type="date"
-                    value={currentProfile.dob || ''}
-                    onChange={(e) => setEditedProfile({...editedProfile, dob: e.target.value})}
+                    value={currentProfile.dob || ""}
+                    onChange={(e) =>
+                      setEditedProfile({
+                        ...editedProfile,
+                        dob: e.target.value,
+                      })
+                    }
                   />
                 ) : (
-                  <p className="text-sm text-muted-foreground">{profile.dob}</p>
+                  <p className="text-sm text-muted-foreground">
+                    {currentProfile.dob}
+                  </p>
                 )}
               </div>
-
               <div className="space-y-2">
                 <Label>Nationality</Label>
                 {isEditing ? (
                   <Input
-                    value={currentProfile.nationality || ''}
-                    onChange={(e) => setEditedProfile({...editedProfile, nationality: e.target.value})}
+                    value={currentProfile.nationality || ""}
+                    onChange={(e) =>
+                      setEditedProfile({
+                        ...editedProfile,
+                        nationality: e.target.value,
+                      })
+                    }
                   />
                 ) : (
-                  <p className="text-sm text-muted-foreground">{profile.nationality}</p>
+                  <p className="text-sm text-muted-foreground">
+                    {currentProfile.nationality}
+                  </p>
                 )}
               </div>
-
               <div className="space-y-2">
                 <Label>Religion</Label>
                 {isEditing ? (
                   <Input
-                    value={currentProfile.religion || ''}
-                    onChange={(e) => setEditedProfile({...editedProfile, religion: e.target.value})}
+                    value={currentProfile.religion || ""}
+                    onChange={(e) =>
+                      setEditedProfile({
+                        ...editedProfile,
+                        religion: e.target.value,
+                      })
+                    }
                   />
                 ) : (
-                  <p className="text-sm text-muted-foreground">{profile.religion}</p>
+                  <p className="text-sm text-muted-foreground">
+                    {currentProfile.religion}
+                  </p>
                 )}
               </div>
-
               <div className="space-y-2">
                 <Label className="flex items-center gap-2">
                   <Heart className="h-4 w-4 text-destructive" />
@@ -222,18 +267,25 @@ const Profile: React.FC = () => {
                 </Label>
                 {isEditing ? (
                   <Input
-                    value={currentProfile.bloodGroup || ''}
-                    onChange={(e) => setEditedProfile({...editedProfile, bloodGroup: e.target.value})}
+                    value={currentProfile.bloodGroup || ""}
+                    onChange={(e) =>
+                      setEditedProfile({
+                        ...editedProfile,
+                        bloodGroup: e.target.value,
+                      })
+                    }
                   />
                 ) : (
-                  <p className="text-sm text-muted-foreground">{profile.bloodGroup}</p>
+                  <p className="text-sm text-muted-foreground">
+                    {currentProfile.bloodGroup}
+                  </p>
                 )}
               </div>
             </CardContent>
           </Card>
         </TabsContent>
 
-        {/* Academic Information */}
+        {/* Academic */}
         <TabsContent value="academic" className="space-y-4">
           <Card>
             <CardHeader>
@@ -245,60 +297,71 @@ const Profile: React.FC = () => {
             <CardContent className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <div className="space-y-2">
                 <Label>Admission Number</Label>
-                <p className="text-sm text-muted-foreground">{profile.admissionNo}</p>
+                <p className="text-sm text-muted-foreground">
+                  {currentProfile.admissionNo}
+                </p>
               </div>
-
               <div className="space-y-2">
                 <Label>Roll Number</Label>
-                <p className="text-sm text-muted-foreground">{profile.rollNo}</p>
+                <p className="text-sm text-muted-foreground">
+                  {currentProfile.rollNo}
+                </p>
               </div>
-
               <div className="space-y-2">
                 <Label>Course</Label>
-                <p className="text-sm text-muted-foreground">{profile.course}</p>
+                <p className="text-sm text-muted-foreground">
+                  {currentProfile.course}
+                </p>
               </div>
-
               <div className="space-y-2">
                 <Label>Branch</Label>
-                <p className="text-sm text-muted-foreground">{profile.branch}</p>
+                <p className="text-sm text-muted-foreground">
+                  {currentProfile.branch}
+                </p>
               </div>
-
               <div className="space-y-2">
                 <Label>10th Marks</Label>
-                <p className="text-sm text-muted-foreground">{profile.tenthMarks} CGPA</p>
+                <p className="text-sm text-muted-foreground">
+                  {currentProfile.tenthMarks} CGPA
+                </p>
               </div>
-
               <div className="space-y-2">
                 <Label>Intermediate Marks</Label>
-                <p className="text-sm text-muted-foreground">{profile.interMarks}</p>
+                <p className="text-sm text-muted-foreground">
+                  {currentProfile.interMarks}
+                </p>
               </div>
-
               <div className="space-y-2">
                 <Label>Entrance Type</Label>
-                <p className="text-sm text-muted-foreground">{profile.entranceType}</p>
+                <p className="text-sm text-muted-foreground">
+                  {currentProfile.entranceType}
+                </p>
               </div>
-
-              {profile.eamcetRank && (
+              {currentProfile.eamcetRank && (
                 <div className="space-y-2">
                   <Label>EAMCET Rank</Label>
-                  <p className="text-sm text-muted-foreground">{profile.eamcetRank}</p>
+                  <p className="text-sm text-muted-foreground">
+                    {currentProfile.eamcetRank}
+                  </p>
                 </div>
               )}
-
               <div className="space-y-2">
                 <Label>Last Studied</Label>
-                <p className="text-sm text-muted-foreground">{profile.lastStudied}</p>
+                <p className="text-sm text-muted-foreground">
+                  {currentProfile.lastStudied}
+                </p>
               </div>
-
               <div className="space-y-2">
                 <Label>Joining Date</Label>
-                <p className="text-sm text-muted-foreground">{profile.joiningDate}</p>
+                <p className="text-sm text-muted-foreground">
+                  {currentProfile.joiningDate}
+                </p>
               </div>
             </CardContent>
           </Card>
         </TabsContent>
 
-        {/* Contact Information */}
+        {/* Contact */}
         <TabsContent value="contact" className="space-y-4">
           <Card>
             <CardHeader>
@@ -311,98 +374,119 @@ const Profile: React.FC = () => {
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div className="space-y-2">
                   <Label className="flex items-center gap-2">
-                    <Mail className="h-4 w-4" />
-                    Email
+                    <Mail className="h-4 w-4" /> Email
                   </Label>
                   {isEditing ? (
                     <Input
                       type="email"
-                      value={currentProfile.email || ''}
-                      onChange={(e) => setEditedProfile({...editedProfile, email: e.target.value})}
+                      value={currentProfile.email || ""}
+                      onChange={(e) =>
+                        setEditedProfile({
+                          ...editedProfile,
+                          email: e.target.value,
+                        })
+                      }
                     />
                   ) : (
-                    <p className="text-sm text-muted-foreground">{profile.email}</p>
+                    <p className="text-sm text-muted-foreground">
+                      {currentProfile.email}
+                    </p>
                   )}
                 </div>
-
                 <div className="space-y-2">
                   <Label className="flex items-center gap-2">
-                    <Phone className="h-4 w-4" />
-                    Phone Number
+                    <Phone className="h-4 w-4" /> Phone Number
                   </Label>
                   {isEditing ? (
                     <Input
-                      value={currentProfile.phoneNumber || ''}
-                      onChange={(e) => setEditedProfile({...editedProfile, phoneNumber: e.target.value})}
+                      value={currentProfile.phoneNumber || ""}
+                      onChange={(e) =>
+                        setEditedProfile({
+                          ...editedProfile,
+                          phoneNumber: e.target.value,
+                        })
+                      }
                     />
                   ) : (
-                    <p className="text-sm text-muted-foreground">{profile.phoneNumber}</p>
+                    <p className="text-sm text-muted-foreground">
+                      {currentProfile.phoneNumber}
+                    </p>
                   )}
                 </div>
               </div>
-
               <Separator />
-
               <div className="space-y-4">
                 <div className="space-y-2">
                   <Label className="flex items-center gap-2">
-                    <MapPin className="h-4 w-4" />
-                    Present Address
+                    <MapPin className="h-4 w-4" /> Present Address
                   </Label>
                   {isEditing ? (
                     <Textarea
-                      value={currentProfile.presentAddress || ''}
-                      onChange={(e) => setEditedProfile({...editedProfile, presentAddress: e.target.value})}
+                      value={currentProfile.presentAddress || ""}
+                      onChange={(e) =>
+                        setEditedProfile({
+                          ...editedProfile,
+                          presentAddress: e.target.value,
+                        })
+                      }
                       rows={3}
                     />
                   ) : (
-                    <p className="text-sm text-muted-foreground">{profile.presentAddress}</p>
+                    <p className="text-sm text-muted-foreground">
+                      {currentProfile.presentAddress}
+                    </p>
                   )}
                 </div>
-
                 <div className="space-y-2">
                   <Label className="flex items-center gap-2">
-                    <MapPin className="h-4 w-4" />
-                    Permanent Address
+                    <MapPin className="h-4 w-4" /> Permanent Address
                   </Label>
                   {isEditing ? (
                     <Textarea
-                      value={currentProfile.permanentAddress || ''}
-                      onChange={(e) => setEditedProfile({...editedProfile, permanentAddress: e.target.value})}
+                      value={currentProfile.permanentAddress || ""}
+                      onChange={(e) =>
+                        setEditedProfile({
+                          ...editedProfile,
+                          permanentAddress: e.target.value,
+                        })
+                      }
                       rows={3}
                     />
                   ) : (
-                    <p className="text-sm text-muted-foreground">{profile.permanentAddress}</p>
+                    <p className="text-sm text-muted-foreground">
+                      {currentProfile.permanentAddress}
+                    </p>
                   )}
                 </div>
               </div>
-
               <Separator />
-
               <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                 <div className="space-y-2">
                   <Label className="flex items-center gap-2">
-                    <CreditCard className="h-4 w-4" />
-                    Bank Account
+                    <CreditCard className="h-4 w-4" /> Bank Account
                   </Label>
-                  <p className="text-sm text-muted-foreground">{profile.bankAccount}</p>
+                  <p className="text-sm text-muted-foreground">
+                    {currentProfile.bankAccount}
+                  </p>
                 </div>
-
                 <div className="space-y-2">
                   <Label>Ration Card</Label>
-                  <p className="text-sm text-muted-foreground">{profile.rationCard}</p>
+                  <p className="text-sm text-muted-foreground">
+                    {currentProfile.rationCard}
+                  </p>
                 </div>
-
                 <div className="space-y-2">
                   <Label>Aadhaar Card</Label>
-                  <p className="text-sm text-muted-foreground">{profile.aadhaarCard}</p>
+                  <p className="text-sm text-muted-foreground">
+                    {currentProfile.aadhaarCard}
+                  </p>
                 </div>
               </div>
             </CardContent>
           </Card>
         </TabsContent>
 
-        {/* Family Information */}
+        {/* Family */}
         <TabsContent value="family" className="space-y-4">
           <Card>
             <CardHeader>
@@ -416,60 +500,91 @@ const Profile: React.FC = () => {
                 <Label>Father's Name</Label>
                 {isEditing ? (
                   <Input
-                    value={currentProfile.fatherName || ''}
-                    onChange={(e) => setEditedProfile({...editedProfile, fatherName: e.target.value})}
+                    value={currentProfile.fatherName || ""}
+                    onChange={(e) =>
+                      setEditedProfile({
+                        ...editedProfile,
+                        fatherName: e.target.value,
+                      })
+                    }
                   />
                 ) : (
-                  <p className="text-sm text-muted-foreground">{profile.fatherName}</p>
+                  <p className="text-sm text-muted-foreground">
+                    {currentProfile.fatherName}
+                  </p>
                 )}
               </div>
-
               <div className="space-y-2">
                 <Label>Mother's Name</Label>
                 {isEditing ? (
                   <Input
-                    value={currentProfile.motherName || ''}
-                    onChange={(e) => setEditedProfile({...editedProfile, motherName: e.target.value})}
+                    value={currentProfile.motherName || ""}
+                    onChange={(e) =>
+                      setEditedProfile({
+                        ...editedProfile,
+                        motherName: e.target.value,
+                      })
+                    }
                   />
                 ) : (
-                  <p className="text-sm text-muted-foreground">{profile.motherName}</p>
+                  <p className="text-sm text-muted-foreground">
+                    {currentProfile.motherName}
+                  </p>
                 )}
               </div>
-
               <div className="space-y-2">
                 <Label>Parent Contact</Label>
                 {isEditing ? (
                   <Input
-                    value={currentProfile.parentContact || ''}
-                    onChange={(e) => setEditedProfile({...editedProfile, parentContact: e.target.value})}
+                    value={currentProfile.parentContact || ""}
+                    onChange={(e) =>
+                      setEditedProfile({
+                        ...editedProfile,
+                        parentContact: e.target.value,
+                      })
+                    }
                   />
                 ) : (
-                  <p className="text-sm text-muted-foreground">{profile.parentContact}</p>
+                  <p className="text-sm text-muted-foreground">
+                    {currentProfile.parentContact}
+                  </p>
                 )}
               </div>
-
               <div className="space-y-2">
                 <Label>Parent Occupation</Label>
                 {isEditing ? (
                   <Input
-                    value={currentProfile.parentOccupation || ''}
-                    onChange={(e) => setEditedProfile({...editedProfile, parentOccupation: e.target.value})}
+                    value={currentProfile.parentOccupation || ""}
+                    onChange={(e) =>
+                      setEditedProfile({
+                        ...editedProfile,
+                        parentOccupation: e.target.value,
+                      })
+                    }
                   />
                 ) : (
-                  <p className="text-sm text-muted-foreground">{profile.parentOccupation}</p>
+                  <p className="text-sm text-muted-foreground">
+                    {currentProfile.parentOccupation}
+                  </p>
                 )}
               </div>
-
               <div className="space-y-2 md:col-span-2">
                 <Label>Annual Income</Label>
                 {isEditing ? (
                   <Input
                     type="number"
-                    value={currentProfile.annualIncome || ''}
-                    onChange={(e) => setEditedProfile({...editedProfile, annualIncome: Number(e.target.value)})}
+                    value={currentProfile.annualIncome || ""}
+                    onChange={(e) =>
+                      setEditedProfile({
+                        ...editedProfile,
+                        annualIncome: Number(e.target.value),
+                      })
+                    }
                   />
                 ) : (
-                  <p className="text-sm text-muted-foreground">₹ {profile.annualIncome?.toLocaleString('en-IN')}</p>
+                  <p className="text-sm text-muted-foreground">
+                    ₹{currentProfile.annualIncome}
+                  </p>
                 )}
               </div>
             </CardContent>

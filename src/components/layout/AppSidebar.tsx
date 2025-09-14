@@ -64,14 +64,14 @@ const adminMenuItems = [
 ];
 
 const learningLinks = [
-  { title: 'Java', url: 'https://developers.google.com/learn/topics/java', icon: Code, external: true },
-  { title: 'Python', url: 'https://developers.google.com/edu/python', icon: Code, external: true },
-  { title: 'C Programming', url: 'https://www.coursera.org/learn/c-programming', icon: Code, external: true },
-  { title: 'C++', url: 'https://www.coursera.org/learn/c-plus-plus-a', icon: Code, external: true },
-  { title: 'SQL', url: 'https://www.coursera.org/learn/intro-sql', icon: Database, external: true },
-  { title: 'Git', url: 'https://www.coursera.org/learn/introduction-git-github', icon: Monitor, external: true },
-  { title: 'Excel', url: 'https://www.coursera.org/learn/excel-basics-data-analysis-ibm', icon: Calculator, external: true },
-  { title: 'Machine Learning', url: 'https://developers.google.com/machine-learning/crash-course', icon: Monitor, external: true },
+  { title: 'Java', url: 'https://www.geeksforgeeks.org/java/java/', icon: Code, external: true },
+  { title: 'Python', url: 'https://www.geeksforgeeks.org/python/python-programming-language-tutorial/', icon: Code, external: true },
+  { title: 'C Programming', url: 'https://www.geeksforgeeks.org/c/c-programming-language/', icon: Code, external: true },
+  { title: 'C++', url: 'https://www.geeksforgeeks.org/cpp/c-plus-plus/', icon: Code, external: true },
+  { title: 'SQL', url: 'https://www.geeksforgeeks.org/sql/sql-tutorial/', icon: Database, external: true },
+  { title: 'Git', url: 'https://www.w3schools.com/git/default.asp', icon: Monitor, external: true },
+  { title: 'Excel', url: 'https://www.w3schools.com/excel/index.php', icon: Calculator, external: true },
+  { title: 'Machine Learning', url: 'https://www.geeksforgeeks.org/machine-learning/machine-learning/', icon: Monitor, external: true },
   { title: 'Free Courses Hub', url: 'https://www.coursera.org/courses?query=free', icon: Globe, external: true },
 ];
 

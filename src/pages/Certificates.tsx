@@ -6,6 +6,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Award, Download, Eye, Upload, Calendar, ExternalLink, Search } from 'lucide-react';
 import { Input } from '@/components/ui/input';
 import { format, parseISO } from 'date-fns';
+import jsPDF from 'jspdf';
 
 const Certificates = () => {
   const [searchQuery, setSearchQuery] = useState('');
@@ -23,7 +24,7 @@ const Certificates = () => {
       description: 'Successfully completed 12-week online certification course in Python Programming.',
       skills: ['Python', 'Data Structures', 'Object-Oriented Programming', 'File Handling'],
       verified: true,
-      certificateUrl: 'https://nptel.ac.in/certificates/24cs1001',
+      certificateUrl: '/certificates/python.pdf', // store in public/certificates
       image: '/api/placeholder/300/200'
     },
     {
@@ -37,7 +38,7 @@ const Certificates = () => {
       description: '3-month internship focusing on machine learning model development and deployment.',
       skills: ['Machine Learning', 'Python', 'TensorFlow', 'Data Analysis', 'Model Deployment'],
       verified: true,
-      certificateUrl: null,
+      certificateUrl: '/certificates/ml-internship.pdf',
       image: '/api/placeholder/300/200'
     },
     {
@@ -51,49 +52,7 @@ const Certificates = () => {
       description: 'Professional Certificate in Full Stack Web Development using modern technologies.',
       skills: ['React', 'Node.js', 'MongoDB', 'Express.js', 'JavaScript', 'HTML/CSS'],
       verified: true,
-      certificateUrl: 'https://coursera.org/verify/META-FSWD-789',
-      image: '/api/placeholder/300/200'
-    },
-    {
-      id: 4,
-      title: 'Cybersecurity Fundamentals',
-      issuer: 'IBM Security',
-      category: 'professional',
-      issueDate: '2023-10-05',
-      expiryDate: '2025-10-05',
-      credentialId: 'IBM-SEC-2023-101',
-      description: 'Comprehensive training in cybersecurity principles and best practices.',
-      skills: ['Network Security', 'Ethical Hacking', 'Risk Assessment', 'Security Protocols'],
-      verified: true,
-      certificateUrl: 'https://ibm.com/training/verify/SEC-101',
-      image: '/api/placeholder/300/200'
-    },
-    {
-      id: 5,
-      title: 'Database Design and SQL',
-      issuer: 'Oracle Academy',
-      category: 'academic',
-      issueDate: '2023-09-15',
-      expiryDate: null,
-      credentialId: 'ORA-DB-2023-202',
-      description: 'Advanced certification in database design principles and SQL optimization.',
-      skills: ['SQL', 'Database Design', 'Oracle DB', 'Performance Tuning', 'Data Modeling'],
-      verified: true,
-      certificateUrl: 'https://oracle.com/academy/verify/DB-202',
-      image: '/api/placeholder/300/200'
-    },
-    {
-      id: 6,
-      title: 'Mobile App Development Project',
-      issuer: 'SVIT Project Lab',
-      category: 'project',
-      issueDate: '2023-08-30',
-      expiryDate: null,
-      credentialId: 'SVIT-PROJ-2023-MAD',
-      description: 'Successfully completed and deployed a mobile application project.',
-      skills: ['React Native', 'Mobile UI/UX', 'API Integration', 'App Store Deployment'],
-      verified: true,
-      certificateUrl: null,
+      certificateUrl: '/certificates/fullstack.pdf',
       image: '/api/placeholder/300/200'
     }
   ];
@@ -121,12 +80,13 @@ const Certificates = () => {
   };
 
   const filteredCertificates = certificates.filter(cert => {
-    const matchesSearch = cert.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
-                         cert.issuer.toLowerCase().includes(searchQuery.toLowerCase()) ||
-                         cert.skills.some(skill => skill.toLowerCase().includes(searchQuery.toLowerCase()));
-    
+    const matchesSearch =
+      cert.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      cert.issuer.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      cert.skills.some(skill => skill.toLowerCase().includes(searchQuery.toLowerCase()));
+
     const matchesCategory = selectedCategory === 'all' || cert.category === selectedCategory;
-    
+
     return matchesSearch && matchesCategory;
   });
 
@@ -138,6 +98,32 @@ const Certificates = () => {
     expired: certificates.filter(c => c.expiryDate && isExpired(c.expiryDate)).length
   };
 
+  // Download Portfolio as PDF
+  const downloadPortfolio = () => {
+    const doc = new jsPDF();
+    doc.setFontSize(14);
+    doc.text('Certificates Portfolio', 20, 20);
+    doc.setFontSize(11);
+
+    certificates.forEach((cert, index) => {
+      doc.text(`${index + 1}. ${cert.title} (${cert.issuer})`, 20, 40 + index * 10);
+    });
+
+    doc.save('Certificates-Portfolio.pdf');
+  };
+
+  // Download individual certificate file
+  const handleDownload = (cert: any) => {
+    if (cert.certificateUrl) {
+      const link = document.createElement('a');
+      link.href = cert.certificateUrl;
+      link.download = `${cert.title}.pdf`;
+      link.click();
+    } else {
+      alert('Certificate file not available for download');
+    }
+  };
+
   return (
     <div className="p-6 space-y-8">
       {/* Header */}
@@ -147,7 +133,7 @@ const Certificates = () => {
           <p className="text-muted-foreground">Manage and showcase your academic and professional certifications</p>
         </div>
         <div className="flex gap-2">
-          <Button variant="outline">
+          <Button variant="outline" onClick={downloadPortfolio}>
             <Download className="mr-2 h-4 w-4" />
             Download Portfolio
           </Button>
@@ -162,9 +148,6 @@ const Certificates = () => {
       <div className="grid grid-cols-2 md:grid-cols-5 gap-4">
         <Card>
           <CardContent className="p-4 text-center">
-            <div className="flex items-center justify-center mb-2">
-              <Award className="h-6 w-6 text-primary" />
-            </div>
             <p className="text-2xl font-bold text-foreground">{stats.total}</p>
             <p className="text-sm text-muted-foreground">Total Certificates</p>
           </CardContent>
@@ -294,13 +277,24 @@ const Certificates = () => {
                   <Eye className="mr-2 h-3 w-3" />
                   View
                 </Button>
-                <Button variant="outline" size="sm" className="flex-1">
+                <Button
+                  variant="outline"
+                  size="sm"
+                  className="flex-1"
+                  onClick={() => handleDownload(certificate)}
+                >
                   <Download className="mr-2 h-3 w-3" />
                   Download
                 </Button>
                 {certificate.certificateUrl && (
-                  <Button variant="outline" size="sm">
-                    <ExternalLink className="h-3 w-3" />
+                  <Button
+                    variant="outline"
+                    size="sm"
+                    asChild
+                  >
+                    <a href={certificate.certificateUrl} target="_blank" rel="noopener noreferrer">
+                      <ExternalLink className="h-3 w-3" />
+                    </a>
                   </Button>
                 )}
               </div>
@@ -308,53 +302,6 @@ const Certificates = () => {
           </Card>
         ))}
       </div>
-
-      {filteredCertificates.length === 0 && (
-        <Card>
-          <CardContent className="p-8 text-center">
-            <Award className="h-12 w-12 text-muted-foreground mx-auto mb-4" />
-            <h3 className="text-lg font-semibold mb-2">No certificates found</h3>
-            <p className="text-muted-foreground mb-4">
-              {searchQuery 
-                ? `No certificates match your search "${searchQuery}"`
-                : 'Start building your portfolio by uploading your first certificate'
-              }
-            </p>
-            <Button>
-              <Upload className="mr-2 h-4 w-4" />
-              Upload Certificate
-            </Button>
-          </CardContent>
-        </Card>
-      )}
-
-      {/* Upload Instructions */}
-      <Card>
-        <CardHeader>
-          <CardTitle>Upload Guidelines</CardTitle>
-          <CardDescription>Tips for adding certificates to your portfolio</CardDescription>
-        </CardHeader>
-        <CardContent>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm">
-            <div>
-              <h4 className="font-medium mb-2">Accepted Formats:</h4>
-              <ul className="space-y-1 text-muted-foreground">
-                <li>• PDF documents (preferred)</li>
-                <li>• High-resolution images (PNG, JPG)</li>
-                <li>• Maximum file size: 10MB</li>
-              </ul>
-            </div>
-            <div>
-              <h4 className="font-medium mb-2">Best Practices:</h4>
-              <ul className="space-y-1 text-muted-foreground">
-                <li>• Include credential verification URL</li>
-                <li>• Add relevant skills and competencies</li>
-                <li>• Keep descriptions concise and clear</li>
-              </ul>
-            </div>
-          </div>
-        </CardContent>
-      </Card>
     </div>
   );
 };

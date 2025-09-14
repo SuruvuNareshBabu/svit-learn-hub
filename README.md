@@ -1,73 +1,87 @@
-# Welcome to your Lovable project
+🎓 Sri Venkateswara Institute of Technology - LMS Portal
+A responsive Learning Management System (LMS) Portal built for Sri Venkateswara Institute of Technology.
+This system helps Students, Faculty, and Admins manage academics, resources, and communication seamlessly.
 
-## Project info
+✨ Features
+1. 🔑 Authentication
+Signup with Email & Password
+Login with Email & Password
+Role-based access (Student / Faculty / Admin)
+JWT Authentication
+2. 👨‍🎓 Student Profile
+Each student profile includes:
 
-**URL**: https://lovable.dev/projects/323e6979-c744-481e-9f47-5b3e938cfb3b
-
-## How can I edit this code?
-
-There are several ways of editing your application.
-
-**Use Lovable**
-
-Simply visit the [Lovable Project](https://lovable.dev/projects/323e6979-c744-481e-9f47-5b3e938cfb3b) and start prompting.
-
-Changes made via Lovable will be committed automatically to this repo.
-
-**Use your preferred IDE**
-
-If you want to work locally using your own IDE, you can clone this repo and push changes. Pushed changes will also be reflected in Lovable.
-
-The only requirement is having Node.js & npm installed - [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating)
-
-Follow these steps:
-
-```sh
-# Step 1: Clone the repository using the project's Git URL.
-git clone <YOUR_GIT_URL>
-
-# Step 2: Navigate to the project directory.
-cd <YOUR_PROJECT_NAME>
-
-# Step 3: Install the necessary dependencies.
-npm i
-
-# Step 4: Start the development server with auto-reloading and an instant preview.
+Admission No, Roll No, Name
+Course, Branch, Semester, Year
+Gender, Nationality, DOB, Religion
+Inter Marks, 10th Marks, Entrance Type, EAMCET Rank
+Last Studied, Joining Date
+Email, Phone Number
+Bank A/c, Ration Card, Aadhaar Card
+Blood Group
+Parents’ Details: Father Name, Mother Name, Contact, Occupation, Annual Income
+Address (Present & Permanent)
+3. 📊 Dashboard
+Profile → View & edit personal details
+My Courses → Curriculum, Subjects, Assignments, Attendance, Timetable
+Resources → PDFs, Videos, Text Notes, Previous Papers, YouTube Links
+Today’s Class → Subject, Teacher, Time
+Certificates → Upload/View (NPTEL, Internships, Projects)
+Announcements & Notifications
+Attendance Tracking (Total, Subject-wise)
+Gradebook / Progress Report
+4. 🏫 About College
+College Information
+Vision & Mission
+Images & Videos
+Rules / Terms & Conditions
+5. ⚙️ Admin Panel
+Manage Students
+Manage Faculty
+Manage Courses
+Generate Reports
+🎨 UI/UX
+Clean dashboard layout
+College branding (logo, colors)
+Mobile responsive (Tailwind CSS)
+⚡ Tech Stack
+Frontend: React + Tailwind CSS
+Backend: Node.js + Express.js
+Database: MongoDB
+Authentication: JWT (JSON Web Tokens)
+APIs: RESTful APIs
+🚀 Getting Started
+1. Clone the repo
+git clone https://github.com/your-suruvuNareshbabu/svit-lms.git
+cd svit-lms
+npm install
 npm run dev
-```
 
-**Edit a file directly in GitHub**
+------
 
-- Navigate to the desired file(s).
-- Click the "Edit" button (pencil icon) at the top right of the file view.
-- Make your changes and commit the changes.
+📌 Modules Overview
 
-**Use GitHub Codespaces**
+Personal Details (Student Profile)
 
-- Navigate to the main page of your repository.
-- Click on the "Code" button (green button) near the top right.
-- Select the "Codespaces" tab.
-- Click on "New codespace" to launch a new Codespace environment.
-- Edit files directly within the Codespace and commit and push your changes once you're done.
+Dashboard (LMS Features)
 
-## What technologies are used for this project?
+Extra Features (Certificates, About College, Admin Panel)
 
-This project is built with:
+📦 Deployment
 
-- Vite
-- TypeScript
-- React
-- shadcn-ui
-- Tailwind CSS
+1.Backend: Node/Express on Render/Heroku/Vercel
 
-## How can I deploy this project?
+2.Frontend: React + Tailwind (Vercel/Netlify)
 
-Simply open [Lovable](https://lovable.dev/projects/323e6979-c744-481e-9f47-5b3e938cfb3b) and click on Share -> Publish.
+3.Database: MongoDB Atlas
 
-## Can I connect a custom domain to my Lovable project?
+🤝 Contributing
 
-Yes, you can!
+Pull requests are welcome. For major changes, open an issue first to discuss what you’d like to change.
 
-To connect a domain, navigate to Project > Settings > Domains and click Connect Domain.
+📄 License
 
-Read more here: [Setting up a custom domain](https://docs.lovable.dev/tips-tricks/custom-domain#step-by-step-guide)
+This project is for educational purposes under Sri Venkateswara Institute of Technology.
+
+@2026 suruvu Naresh babu. All rights reserved.
+build with ❤️using react, & tailwind CSS
