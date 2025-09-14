@@ -5,8 +5,9 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
 import { Alert, AlertDescription } from '@/components/ui/alert';
-import { Loader2, GraduationCap } from 'lucide-react';
+import { Loader2 } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
+import SvitLogo from '../../assets/SvitLogo.png'; // Corrected path
 
 const LoginForm: React.FC = () => {
   const [email, setEmail] = useState('');
@@ -41,14 +42,16 @@ const LoginForm: React.FC = () => {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gradient-hero p-4">
+    <div className="min-h-screen flex flex-col items-center justify-center bg-gradient-hero p-4">
+      {/* Centered SVIT Logo */}
+      <img
+        src={SvitLogo}
+        alt="SVIT Logo"
+        className="w-28 h-auto mb-6"
+      />
+
       <Card className="w-full max-w-md shadow-strong">
         <CardHeader className="text-center">
-          <div className="flex justify-center mb-4">
-            <div className="p-3 bg-primary rounded-full">
-              <GraduationCap className="h-8 w-8 text-primary-foreground" />
-            </div>
-          </div>
           <CardTitle className="text-2xl font-bold text-primary">
             SVIT LMS Portal
           </CardTitle>
@@ -56,6 +59,7 @@ const LoginForm: React.FC = () => {
             Sri Venkateswara Institute of Technology
           </CardDescription>
         </CardHeader>
+
         <form onSubmit={handleSubmit}>
           <CardContent className="space-y-4">
             {error && (
@@ -63,7 +67,7 @@ const LoginForm: React.FC = () => {
                 <AlertDescription>{error}</AlertDescription>
               </Alert>
             )}
-            
+
             <div className="space-y-2">
               <Label htmlFor="email">Email</Label>
               <Input
@@ -75,7 +79,7 @@ const LoginForm: React.FC = () => {
                 disabled={isLoading}
               />
             </div>
-            
+
             <div className="space-y-2">
               <Label htmlFor="password">Password</Label>
               <Input
@@ -96,10 +100,10 @@ const LoginForm: React.FC = () => {
               <p>Password: password123</p>
             </div>
           </CardContent>
-          
+
           <CardFooter>
-            <Button 
-              type="submit" 
+            <Button
+              type="submit"
               className="w-full bg-gradient-primary hover:opacity-90 transition-smooth"
               disabled={isLoading}
             >

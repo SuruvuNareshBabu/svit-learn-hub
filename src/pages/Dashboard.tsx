@@ -156,14 +156,14 @@ const Dashboard: React.FC = () => {
                 <div className="flex items-center justify-between p-3 bg-muted rounded-lg">
                   <div>
                     <p className="font-medium">Data Structures</p>
-                    <p className="text-sm text-muted-foreground">Dr. Priya Kumar</p>
+                    <p className="text-sm text-muted-foreground">Dr.Ravi Kumar</p>
                   </div>
                   <Badge variant="secondary">9:00 AM</Badge>
                 </div>
                 <div className="flex items-center justify-between p-3 bg-muted rounded-lg">
                   <div>
                     <p className="font-medium">Web Technologies Lab</p>
-                    <p className="text-sm text-muted-foreground">Prof. Rajesh Singh</p>
+                    <p className="text-sm text-muted-foreground">Prof. mahesh</p>
                   </div>
                   <Badge variant="secondary">2:00 PM</Badge>
                 </div>
