@@ -7,7 +7,7 @@ import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle }
 import { Alert, AlertDescription } from '@/components/ui/alert';
 import { Loader2 } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
-import SvitLogo from '../../assets/SvitLogo.png'; // Corrected path
+import SvitLogo from '../../assets/SvitLogo.png'; 
 
 const LoginForm: React.FC = () => {
   const [email, setEmail] = useState('');
