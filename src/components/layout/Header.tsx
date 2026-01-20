@@ -10,7 +10,7 @@ import {
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
 import { SidebarTrigger } from '@/components/ui/sidebar';
-import { Bell, Settings, LogOut, User, GraduationCap } from 'lucide-react';
+import { Bell, Settings, LogOut, User } from 'lucide-react';
 import { useAuth } from '@/contexts/AuthContext';
 import { Badge } from '@/components/ui/badge';
 
@@ -28,16 +28,7 @@ const Header: React.FC = () => {
 
   const getUserName = () => {
     if (!user) return 'Guest';
-    
-    if (user.role === 'student') {
-      return (user.profile as any).name;
-    } else if (user.role === 'faculty') {
-      return (user.profile as any).name;
-    } else if (user.role === 'admin') {
-      return (user.profile as any).name;
-    }
-    
-    return 'User';
+    return (user.profile as any)?.name || 'User';
   };
 
   const getRoleBadgeColor = () => {
@@ -60,7 +51,7 @@ const Header: React.FC = () => {
         
         <div className="flex items-center gap-3">
           <img 
-            src="/src/assets/SvitLogo.png" 
+            src="https://tse3.mm.bing.net/th/id/OIP.eCjG-5y-26449bki6guTRQHaG_?pid=Api&P=0&h=180" 
             alt="SVIT Logo" 
             className="h-10 w-10 rounded-lg object-cover" 
           />
